@@ -1,0 +1,320 @@
+.wrap {
+  min-height: 100vh;
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 0 28px 80px;
+}
+
+/* ── Header ── */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 36px 0 28px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 36px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.brandIcon {
+  width: 44px;
+  height: 44px;
+  background: var(--amber-soft);
+  border: 1px solid var(--amber-glow);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Amiri', serif;
+  font-size: 22px;
+  color: var(--amber);
+}
+
+.brandName {
+  font-family: 'Lora', serif;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--text-1);
+}
+
+.brandSub {
+  font-size: 11px;
+  color: var(--text-3);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+.bismillah {
+  font-family: 'Amiri', serif;
+  font-size: 22px;
+  color: var(--text-3);
+  direction: rtl;
+}
+
+/* ── Controls ── */
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.searchWrap {
+  position: relative;
+  flex: 1;
+  min-width: 180px;
+  max-width: 320px;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 15px;
+  height: 15px;
+  color: var(--text-3);
+  pointer-events: none;
+}
+
+.search {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 9px 12px 9px 36px;
+  color: var(--text-1);
+  font-family: 'Lora', serif;
+  font-size: 14px;
+  outline: none;
+  box-shadow: var(--shadow-sm);
+  transition: border-color 0.18s, box-shadow 0.18s;
+}
+.search::placeholder { color: var(--text-4); }
+.search:focus {
+  border-color: var(--amber-glow);
+  box-shadow: 0 0 0 3px var(--amber-soft);
+}
+
+.filters {
+  display: flex;
+  gap: 6px;
+}
+
+.filterBtn {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 14px;
+  color: var(--text-2);
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.15s;
+}
+.filterBtn:hover { border-color: var(--border-md); background: var(--surface-2); }
+.filterActive {
+  background: var(--amber-soft) !important;
+  border-color: var(--amber-glow) !important;
+  color: var(--amber) !important;
+}
+
+.meta {
+  font-size: 12px;
+  color: var(--text-4);
+  letter-spacing: 0.06em;
+  margin-bottom: 20px;
+}
+
+/* ── Grid ── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 10px;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s;
+  animation: up 0.35s ease both;
+  position: relative;
+  overflow: hidden;
+}
+
+@keyframes up {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--amber), transparent);
+  opacity: 0;
+  transition: opacity 0.18s;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--border-md);
+}
+.card:hover::after { opacity: 1; }
+
+.cardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.num {
+  font-size: 12px;
+  color: var(--text-3);
+  font-family: 'Lora', serif;
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.15s, color 0.15s;
+}
+.card:hover .num { border-color: var(--amber-glow); color: var(--amber); }
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  opacity: 0.65;
+}
+
+.arabic {
+  font-family: 'Amiri', serif;
+  font-size: 26px;
+  color: var(--arabic);
+  text-align: right;
+  direction: rtl;
+  line-height: 1.4;
+}
+
+.cardBot {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.ename {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-1);
+}
+
+.etrans {
+  font-size: 12px;
+  color: var(--text-3);
+  font-style: italic;
+  margin-top: 2px;
+}
+
+.vcount {
+  text-align: right;
+  flex-shrink: 0;
+}
+.vcount span:first-child {
+  display: block;
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--text-3);
+  line-height: 1;
+}
+.vlabel {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-4);
+  display: block;
+  margin-top: 2px;
+}
+
+/* ── Skeleton ── */
+.skGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 10px;
+}
+.sk {
+  height: 155px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%,100% { opacity: 0.6; }
+  50%      { opacity: 1; }
+}
+
+/* ── Footer ── */
+.footer {
+  margin-top: 72px;
+  text-align: center;
+  padding-top: 28px;
+  border-top: 1px solid var(--border);
+}
+.footer p {
+  font-size: 12px;
+  color: var(--text-4);
+  letter-spacing: 0.06em;
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.sessionBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--amber-soft);
+  border: 1px solid var(--amber-glow);
+  border-radius: 10px;
+  padding: 9px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--amber);
+  letter-spacing: 0.03em;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+
+.sessionBtn:hover {
+  background: var(--amber);
+  color: #fff;
+  box-shadow: 0 4px 14px var(--amber-soft);
+}
