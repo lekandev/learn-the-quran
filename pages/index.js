@@ -3,6 +3,15 @@ import Head from 'next/head'
 import Link from 'next/link'
 import styles from '../styles/Home.module.css'
 
+// Octagon SVG badge
+function OctBadge({ className }) {
+  return (
+    <svg className={className} viewBox="0 0 36 36" fill="none" stroke="currentColor" strokeWidth="1.2">
+      <polygon points="11,2 25,2 34,11 34,25 25,34 11,34 2,25 2,11"/>
+    </svg>
+  )
+}
+
 export default function Home() {
   const [surahs, setSurahs] = useState([])
   const [loading, setLoading] = useState(true)
@@ -22,18 +31,15 @@ export default function Home() {
       s.englishNameTranslation.toLowerCase().includes(q) ||
       s.name.includes(search) ||
       String(s.number).includes(search)
-    const matchF =
-      filter === 'all' ||
-      (filter === 'meccan' && s.revelationType === 'Meccan') ||
-      (filter === 'medinan' && s.revelationType === 'Medinan')
+    const matchF = filter === 'all'
+      || (filter === 'meccan' && s.revelationType === 'Meccan')
+      || (filter === 'medinan' && s.revelationType === 'Medinan')
     return matchQ && matchF
   })
 
   return (
     <>
-      <Head>
-        <title>Tarteel — Learn the Quran</title>
-      </Head>
+      <Head><title>Tarteel — Learn the Quran</title></Head>
       <div className={styles.wrap}>
         <header className={styles.header}>
           <div className={styles.brand}>
@@ -44,9 +50,9 @@ export default function Home() {
             </div>
           </div>
           <div className={styles.headerRight}>
-            <div className={styles.bismillah}>بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+            <div className={styles.bismillahTop}>بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
             <Link href="/session" className={styles.sessionBtn}>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="13" height="13">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" width="13" height="13">
                 <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
               </svg>
               Daily Session
@@ -61,16 +67,15 @@ export default function Home() {
             </svg>
             <input
               className={styles.search}
-              placeholder="Search surah name or number…"
+              placeholder="Search by name or number…"
               value={search}
               onChange={e => setSearch(e.target.value)}
             />
           </div>
           <div className={styles.filters}>
             {[['all','All'],['meccan','Meccan'],['medinan','Medinan']].map(([v,l]) => (
-              <button
-                key={v}
-                className={`${styles.filterBtn} ${filter===v ? styles.filterActive : ''}`}
+              <button key={v}
+                className={`${styles.filterBtn} ${filter===v ? styles.filterActive:''}`}
                 onClick={() => setFilter(v)}
               >{l}</button>
             ))}
@@ -82,21 +87,24 @@ export default function Home() {
         {loading ? (
           <div className={styles.skGrid}>
             {Array.from({length:24}).map((_,i) => (
-              <div key={i} className={styles.sk} style={{animationDelay:`${i*0.035}s`}} />
+              <div key={i} className={styles.sk} style={{animationDelay:`${i*.03}s`}} />
             ))}
           </div>
         ) : (
           <div className={styles.grid}>
             {filtered.map((s,i) => (
               <Link href={`/surah/${s.number}`} key={s.number} className={styles.card}
-                style={{animationDelay:`${i*0.022}s`}}>
+                style={{animationDelay:`${i*.02}s`}}>
                 <div className={styles.cardTop}>
-                  <div className={styles.num}>{s.number}</div>
-                  <div className={styles.dot} style={{
-                    background: s.revelationType === 'Meccan' ? '#b07d3a' : '#6b8db0'
-                  }} />
+                  <div className={styles.numWrap}>
+                    <OctBadge className={styles.numOct} />
+                    <span className={styles.numText}>{s.number}</span>
+                  </div>
+                  <div className={styles.revDot} style={{
+                    background: s.revelationType === 'Meccan' ? '#9E6B3F' : '#4A7A9B'
+                  }} title={s.revelationType} />
                 </div>
-                <div className={styles.arabic}>{s.name}</div>
+                <div className={styles.arabicName}>{s.name}</div>
                 <div className={styles.cardBot}>
                   <div>
                     <div className={styles.ename}>{s.englishName}</div>
@@ -113,7 +121,7 @@ export default function Home() {
         )}
 
         <footer className={styles.footer}>
-          <p>Audio · Mishary Rashid Alafasy &nbsp;·&nbsp; Text · alquran.cloud</p>
+          <p>Text · alquran.cloud &nbsp;·&nbsp; Audio · Mishary Rashid Alafasy</p>
         </footer>
       </div>
     </>
