@@ -3,7 +3,6 @@ import Head from 'next/head'
 import Link from 'next/link'
 import styles from '../styles/Home.module.css'
 
-// Octagon SVG badge
 function OctBadge({ className }) {
   return (
     <svg className={className} viewBox="0 0 36 36" fill="none" stroke="currentColor" strokeWidth="1.2">
@@ -12,7 +11,23 @@ function OctBadge({ className }) {
   )
 }
 
-export default function Home() {
+function ThemeToggle({ theme, toggleTheme }) {
+  const isAfrican = theme === 'african'
+  return (
+    <button className={styles.themeBtn} onClick={toggleTheme} title={`Switch to ${isAfrican ? 'Arabian' : 'East African'} theme`}>
+      <div className={`${styles.themeTrack} ${isAfrican ? styles.themeTrackOn : ''}`}>
+        <div className={styles.themeThumb}>
+          {isAfrican ? '🌿' : '🌙'}
+        </div>
+      </div>
+      <span className={styles.themeBtnLabel}>
+        {isAfrican ? 'East African' : 'Arabian'}
+      </span>
+    </button>
+  )
+}
+
+export default function Home({ theme, toggleTheme }) {
   const [surahs, setSurahs] = useState([])
   const [loading, setLoading] = useState(true)
   const [search, setSearch] = useState('')
@@ -51,6 +66,7 @@ export default function Home() {
           </div>
           <div className={styles.headerRight}>
             <div className={styles.bismillahTop}>بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+            <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
             <Link href="/session" className={styles.sessionBtn}>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" width="13" height="13">
                 <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
@@ -101,7 +117,7 @@ export default function Home() {
                     <span className={styles.numText}>{s.number}</span>
                   </div>
                   <div className={styles.revDot} style={{
-                    background: s.revelationType === 'Meccan' ? '#9E6B3F' : '#4A7A9B'
+                    background: s.revelationType === 'Meccan' ? 'var(--brand)' : '#4A7A9B'
                   }} title={s.revelationType} />
                 </div>
                 <div className={styles.arabicName}>{s.name}</div>
