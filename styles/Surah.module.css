@@ -1,7 +1,8 @@
 .page {
   min-height: 100vh;
-  max-width: 860px;
+  width: 100%;
   margin: 0 auto;
+  max-width: 860px;
   padding: 0 28px 80px;
 }
 
@@ -15,7 +16,7 @@
   border-bottom: 1px solid var(--border);
   position: sticky;
   top: 0;
-  background: rgba(239,233,222,0.93);
+  background: var(--nav-bg);
   backdrop-filter: blur(12px);
   z-index: 30;
   transition: background .3s;
@@ -198,30 +199,20 @@
   margin-bottom: 32px;
 }
 
-/* ── Bismillah frame (compact) ── */
+/* ── Bismillah frame (double-line, clean) ── */
 .bismillahFrame {
   position: relative;
-  max-width: 460px;
+  max-width: 440px;
   margin: 0 auto 8px;
-  padding: 16px 52px;
-  background: linear-gradient(135deg, var(--frame-bg-from, #FFFDF9), var(--frame-bg-to, #FEF8EE));
-  border: 1px solid var(--frame-border, var(--border-md));
-  border-radius: 3px;
-  box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(255,255,255,.7);
-  outline: 2px solid var(--frame-outline, var(--border));
-  outline-offset: 3px;
+  padding: 14px 40px;
+  background: linear-gradient(135deg, var(--surface) 0%, var(--surface-2) 100%);
+  /* Double border via box-shadow */
+  border: 1px solid var(--border-md);
+  outline: 3px solid var(--border);
+  outline-offset: 4px;
+  border-radius: 2px;
+  box-shadow: var(--shadow-sm);
 }
-
-.corner {
-  position: absolute;
-  width: 28px; height: 28px;
-  color: var(--frame-orn, var(--brand));
-  opacity: 0.6;
-}
-.cTL { top: -7px;  left: -7px; }
-.cTR { top: -7px;  right: -7px; transform: scaleX(-1); }
-.cBL { bottom: -7px; left: -7px; transform: scaleY(-1); }
-.cBR { bottom: -7px; right: -7px; transform: scale(-1); }
 
 .bismillahText {
   font-family: 'Amiri', serif;
@@ -449,4 +440,27 @@
   .row { grid-template-columns: 36px 1fr auto; gap: 10px; padding: 18px 10px; }
   .bismillahFrame { padding: 14px 40px; }
   .bismillahText { font-size: 22px; }
+}
+
+/* ── Transliteration button — mirrors transBtn ── */
+.translitBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 7px 11px;
+  font-size: 12px;
+  color: var(--text-3);
+  transition: all .15s;
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  font-family: inherit;
+}
+.translitBtn:hover { border-color: var(--border-md); color: var(--text-2); }
+.translitBtnOn {
+  background: var(--brand-soft) !important;
+  border-color: var(--brand-border) !important;
+  color: var(--brand) !important;
 }

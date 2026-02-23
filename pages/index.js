@@ -1,145 +1,133 @@
-import { useState, useEffect } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
-import styles from '../styles/Home.module.css'
+import { useState } from 'react'
+import Layout from '../components/Layout'
+import styles from '../styles/Landing.module.css'
 
-function OctBadge({ className }) {
+const FEATURES = [
+  {
+    id: 'read', href: '/read',
+    arabicTitle: 'اقرأ',
+    title: 'Read the Quran',
+    subtitle: 'All 114 surahs · Alafasy audio · Sahih translation',
+    desc: 'Browse every surah verse by verse. Listen to Mishary Alafasy, read the Arabic with full diacritics, and download any verse as a shareable image.',
+    ref: { arabic: 'اقْرَأْ بِاسْمِ رَبِّكَ الَّذِي خَلَقَ', text: 'Read in the name of your Lord who created.', source: "Al-'Alaq 96:1", tag: 'Quran' },
+    color: '#9E6B3F', soft: 'rgba(158,107,63,0.08)', border: 'rgba(158,107,63,0.22)',
+  },
+  {
+    id: 'session', href: '/session',
+    arabicTitle: 'رتّل',
+    title: 'Practice & Memorise',
+    subtitle: 'Sabaq · Sabaqi · Dhor — the Islamiyyah method',
+    desc: 'The traditional three-phase system of the madrasah: new lesson daily, yesterday reviewed from memory, everything prior on spaced repetition. Record your recitation for AI pronunciation feedback.',
+    ref: { arabic: 'وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا', text: 'Recite the Quran with measured recitation.', source: 'Al-Muzzammil 73:4', tag: 'Quran' },
+    hadith: { text: '"The best of you are those who learn the Quran and teach it."', source: 'Bukhari 5027', tag: 'Hadith' },
+    color: '#5a7fa8', soft: 'rgba(90,127,168,0.08)', border: 'rgba(90,127,168,0.22)',
+  },
+  {
+    id: 'asma', href: '/asma',
+    arabicTitle: 'الأسماء',
+    title: 'Asma ul Husna',
+    subtitle: 'The 99 Most Beautiful Names of Allah',
+    desc: 'Reflect on each of the 99 Names — their Arabic, meaning, and how to call upon Allah through them in supplication. The foundation of true faith.',
+    ref: { arabic: 'وَلِلَّهِ الْأَسْمَاءُ الْحُسْنَىٰ فَادْعُوهُ بِهَا', text: 'Allah has the Most Beautiful Names — call upon Him by them.', source: "Al-A'raf 7:180", tag: 'Quran' },
+    hadith: { text: '"Allah has ninety-nine names. Whoever preserves them will enter Paradise."', source: 'Muslim 2677', tag: 'Hadith' },
+    color: '#7a5a9e', soft: 'rgba(122,90,158,0.08)', border: 'rgba(122,90,158,0.22)',
+  },
+]
+
+const ICONS = {
+  read: <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.3" width="32" height="32"><path d="M8 6h18l8 8v22H8V6z"/><path d="M26 6v8h8"/><line x1="13" y1="19" x2="27" y2="19"/><line x1="13" y1="24" x2="27" y2="24"/><line x1="13" y1="29" x2="21" y2="29"/></svg>,
+  session: <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.3" width="32" height="32"><rect x="9" y="5" width="8" height="17" rx="4"/><path d="M5 18a9 9 0 0 0 18 0"/><line x1="13" y1="27" x2="13" y2="34"/><line x1="8" y1="34" x2="18" y2="34"/><circle cx="29" cy="27" r="7"/><path d="M27 25l5 2-5 2v-4z" fill="currentColor" stroke="none"/></svg>,
+  asma: <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.3" width="32" height="32"><polygon points="20,3 23.5,13.5 34.5,13.5 26,20.5 29,31 20,25 11,31 14,20.5 5.5,13.5 16.5,13.5"/></svg>,
+}
+
+function OrnDivider() {
   return (
-    <svg className={className} viewBox="0 0 36 36" fill="none" stroke="currentColor" strokeWidth="1.2">
-      <polygon points="11,2 25,2 34,11 34,25 25,34 11,34 2,25 2,11"/>
-    </svg>
+    <div className={styles.div}>
+      <div className={styles.divLine}/>
+      <svg viewBox="0 0 32 16" width="24" height="12" fill="none" stroke="currentColor"><path d="M16 2 L30 8 L16 14 L2 8 Z" strokeWidth="1"/><circle cx="16" cy="8" r="2" fill="currentColor" stroke="none"/></svg>
+      <div className={styles.divLine}/>
+    </div>
   )
 }
 
-function ThemeToggle({ theme, toggleTheme }) {
-  const isAfrican = theme === 'african'
+export default function Landing({ theme, toggleTheme }) {
   return (
-    <button className={styles.themeBtn} onClick={toggleTheme} title={`Switch to ${isAfrican ? 'Arabian' : 'East African'} theme`}>
-      <div className={`${styles.themeTrack} ${isAfrican ? styles.themeTrackOn : ''}`}>
-        <div className={styles.themeThumb}>
-          {isAfrican ? '🌿' : '🌙'}
-        </div>
-      </div>
-      <span className={styles.themeBtnLabel}>
-        {isAfrican ? 'East African' : 'Arabian'}
-      </span>
-    </button>
-  )
-}
+    <Layout theme={theme} toggleTheme={toggleTheme}>
+      <Head><title>Tarteel — Learn & Memorise the Quran</title></Head>
+      <div className={styles.page}>
 
-export default function Home({ theme, toggleTheme }) {
-  const [surahs, setSurahs] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [search, setSearch] = useState('')
-  const [filter, setFilter] = useState('all')
+        {/* ── Top nav row ── */}
+        <nav className={styles.topNav}>
+          <span className={styles.topNavBrand}>
+            <span className={styles.topNavAr}>ت</span>Tarteel
+          </span>
+          <button className={styles.themeBtn} onClick={toggleTheme} title="Switch theme">
+            {theme === 'african' ? '🌙' : '🌿'}
+          </button>
+        </nav>
 
-  useEffect(() => {
-    fetch('https://api.alquran.cloud/v1/surah')
-      .then(r => r.json())
-      .then(d => { setSurahs(d.data); setLoading(false) })
-  }, [])
-
-  const filtered = surahs.filter(s => {
-    const q = search.toLowerCase()
-    const matchQ = !q ||
-      s.englishName.toLowerCase().includes(q) ||
-      s.englishNameTranslation.toLowerCase().includes(q) ||
-      s.name.includes(search) ||
-      String(s.number).includes(search)
-    const matchF = filter === 'all'
-      || (filter === 'meccan' && s.revelationType === 'Meccan')
-      || (filter === 'medinan' && s.revelationType === 'Medinan')
-    return matchQ && matchF
-  })
-
-  return (
-    <>
-      <Head><title>Tarteel — Learn the Quran</title></Head>
-      <div className={styles.wrap}>
-        <header className={styles.header}>
-          <div className={styles.brand}>
-            <div className={styles.brandIcon}>ت</div>
-            <div>
-              <div className={styles.brandName}>Tarteel</div>
-              <div className={styles.brandSub}>Quran Self Teaching</div>
-            </div>
-          </div>
-          <div className={styles.headerRight}>
-            <div className={styles.bismillahTop}>بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
-            <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
-            <Link href="/session" className={styles.sessionBtn}>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" width="13" height="13">
-                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-              </svg>
-              Daily Session
-            </Link>
-          </div>
+        {/* ── Hero ── */}
+        <header className={styles.hero}>
+          <div className={styles.bismillah}>بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+          <h1 className={styles.heroAr}>ترتيل</h1>
+          <p className={styles.heroSub}>A companion for reading, memorising,<br/>and knowing Allah through His Quran</p>
+          <blockquote className={styles.heroVerse}>
+            <p className={styles.heroVerseAr}>إِنَّ هَٰذَا الْقُرْآنَ يَهْدِي لِلَّتِي هِيَ أَقْوَمُ</p>
+            <p className={styles.heroVerseEn}>"Indeed, this Quran guides to that which is most suitable."</p>
+            <cite className={styles.heroVerseSrc}>Al-Isra 17:9</cite>
+          </blockquote>
         </header>
 
-        <div className={styles.controls}>
-          <div className={styles.searchWrap}>
-            <svg className={styles.searchIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-              <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
-            </svg>
-            <input
-              className={styles.search}
-              placeholder="Search by name or number…"
-              value={search}
-              onChange={e => setSearch(e.target.value)}
-            />
-          </div>
-          <div className={styles.filters}>
-            {[['all','All'],['meccan','Meccan'],['medinan','Medinan']].map(([v,l]) => (
-              <button key={v}
-                className={`${styles.filterBtn} ${filter===v ? styles.filterActive:''}`}
-                onClick={() => setFilter(v)}
-              >{l}</button>
-            ))}
-          </div>
-        </div>
+        <OrnDivider/>
 
-        {!loading && <div className={styles.meta}>{filtered.length} surahs</div>}
-
-        {loading ? (
-          <div className={styles.skGrid}>
-            {Array.from({length:24}).map((_,i) => (
-              <div key={i} className={styles.sk} style={{animationDelay:`${i*.03}s`}} />
-            ))}
-          </div>
-        ) : (
-          <div className={styles.grid}>
-            {filtered.map((s,i) => (
-              <Link href={`/surah/${s.number}`} key={s.number} className={styles.card}
-                style={{animationDelay:`${i*.02}s`}}>
-                <div className={styles.cardTop}>
-                  <div className={styles.numWrap}>
-                    <OctBadge className={styles.numOct} />
-                    <span className={styles.numText}>{s.number}</span>
-                  </div>
-                  <div className={styles.revDot} style={{
-                    background: s.revelationType === 'Meccan' ? 'var(--brand)' : '#4A7A9B'
-                  }} title={s.revelationType} />
+        {/* ── Feature cards ── */}
+        <section className={styles.cards}>
+          {FEATURES.map((f, i) => (
+            <Link key={f.id} href={f.href} className={styles.card}
+              style={{ '--fc': f.color, '--fs': f.soft, '--fb': f.border, animationDelay: `${i * 0.07}s` }}>
+              <div className={styles.cardAccent}/>
+              <div className={styles.cardTop}>
+                <div className={styles.cardNum}>{String(i+1).padStart(2,'0')}</div>
+                <div className={styles.cardIcon} style={{color:f.color}}>{ICONS[f.id]}</div>
+                <div className={styles.cardTitles}>
+                  <span className={styles.cardAr}>{f.arabicTitle}</span>
+                  <span className={styles.cardTitle}>{f.title}</span>
+                  <span className={styles.cardSub}>{f.subtitle}</span>
                 </div>
-                <div className={styles.arabicName}>{s.name}</div>
-                <div className={styles.cardBot}>
-                  <div>
-                    <div className={styles.ename}>{s.englishName}</div>
-                    <div className={styles.etrans}>{s.englishNameTranslation}</div>
-                  </div>
-                  <div className={styles.vcount}>
-                    <span>{s.numberOfAyahs}</span>
-                    <span className={styles.vlabel}>verses</span>
+                <svg className={styles.cardArrow} viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.8" width="16" height="16" style={{color:f.color}}>
+                  <path d="M4 10h12M12 5l5 5-5 5"/>
+                </svg>
+              </div>
+              <p className={styles.cardDesc}>{f.desc}</p>
+              <div className={styles.refs}>
+                <div className={styles.ref}>
+                  {f.ref.arabic && <div className={styles.refAr}>{f.ref.arabic}</div>}
+                  <div className={styles.refText}>"{f.ref.text}"</div>
+                  <div className={styles.refSrc}>
+                    <span className={styles.refTag} style={{color:f.color,borderColor:f.border,background:f.soft}}>{f.ref.tag}</span>
+                    {f.ref.source}
                   </div>
                 </div>
-              </Link>
-            ))}
-          </div>
-        )}
+                {f.hadith && (
+                  <div className={styles.ref}>
+                    <div className={styles.refText}>{f.hadith.text}</div>
+                    <div className={styles.refSrc}>
+                      <span className={styles.refTag} style={{color:f.color,borderColor:f.border,background:f.soft}}>{f.hadith.tag}</span>
+                      {f.hadith.source}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </Link>
+          ))}
+        </section>
 
         <footer className={styles.footer}>
-          <p>Text · alquran.cloud &nbsp;·&nbsp; Audio · Mishary Rashid Alafasy</p>
+          <p className={styles.footerCredit}>Text · alquran.cloud &nbsp;·&nbsp; Audio · Mishary Rashid Alafasy</p>
         </footer>
       </div>
-    </>
+    </Layout>
   )
 }

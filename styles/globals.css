@@ -6,6 +6,7 @@
    ═══════════════════════════════════ */
 :root,
 [data-theme="arabian"] {
+  --nav-bg:       rgba(245,240,232,0.92);
   --bg:           #F5EFE6;
   --surface:      #FFFFFF;
   --surface-2:    #FDFAF5;
@@ -50,6 +51,7 @@
    Savanna greens, ochre earth, ivory
    ═══════════════════════════════════ */
 [data-theme="african"] {
+  --nav-bg:       rgba(226,237,220,0.92);
   --bg:           #EFF4EC;
   --surface:      #FFFFFF;
   --surface-2:    #F7FAF5;
