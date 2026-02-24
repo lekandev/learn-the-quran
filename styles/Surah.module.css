@@ -1,9 +1,9 @@
 .page {
   min-height: 100vh;
   width: 100%;
-  margin: 0 auto;
   max-width: 860px;
   padding: 0 28px 80px;
+  align-self: stretch;
 }
 
 /* ── Nav ── */
@@ -20,9 +20,6 @@
   backdrop-filter: blur(12px);
   z-index: 30;
   transition: background .3s;
-}
-[data-theme="african"] .nav {
-  background: rgba(226,237,220,0.93);
 }
 
 .back {
@@ -88,7 +85,14 @@
   border-color: var(--brand-border) !important;
   color: var(--brand) !important;
 }
-@media (max-width:580px) { .transLabel { display:none; } .navEn { display:none; } }
+@media (max-width:580px) {
+  .btnLabel { display: none; }
+  .navEn { display: none; }
+  .navAr { font-size: 17px; }
+  .nav { padding: 9px 0; gap: 6px; }
+  .transBtn { padding: 7px 8px; }
+  .back { font-size: 12px; gap: 4px; }
+}
 
 .navArrows { display: flex; gap: 4px; }
 .navArrow {

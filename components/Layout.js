@@ -6,7 +6,6 @@ export default function Layout({
   children,
   theme,
   toggleTheme,
-  // Right sidebar props passed in from surah page
   rightSidebarContent,
   rightSidebarOpen,
   onRightSidebarClose,
