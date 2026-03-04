@@ -3,6 +3,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import Layout from '../../components/Layout'
+import { recordSurahVisit } from '../../components/SurahTracker'
 import RightSidebar from '../../components/RightSidebar'
 import styles from '../../styles/Surah.module.css'
 
@@ -210,7 +211,18 @@ export default function SurahPage({ theme, toggleTheme }) {
     Promise.all([
       fetch(`https://api.alquran.cloud/v1/surah/${id}/quran-uthmani`).then(r => r.json()),
       fetch(`https://api.alquran.cloud/v1/surah/${id}/en.sahih`).then(r => r.json()),
-    ]).then(([ar, en]) => { setSurahAr(ar.data); setSurahEn(en.data); setLoading(false) })
+    ]).then(([ar, en]) => {
+      setSurahAr(ar.data)
+      setSurahEn(en.data)
+      setLoading(false)
+      recordSurahVisit({
+        number: ar.data.number,
+        name: ar.data.name,
+        englishName: ar.data.englishName,
+        englishNameTranslation: ar.data.englishNameTranslation,
+        juz: ar.data.juz?.[0]?.index ?? null,
+      })
+    })
   }, [id])
 
   const stopAudio = useCallback(() => {

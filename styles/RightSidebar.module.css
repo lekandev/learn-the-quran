@@ -30,7 +30,7 @@
   transform: translateX(0);
 }
 
-/* Desktop: always visible when open, no overlay */
+/* Desktop: sticky in flow, hidden until open */
 @media (min-width: 1100px) {
   .sidebar {
     position: sticky;
@@ -38,6 +38,12 @@
     height: 100vh;
     flex-shrink: 0;
     box-shadow: none;
+    transform: none;
+    display: none;
+  }
+  .sidebar.open {
+    display: flex;
+    transform: none;
   }
   .overlay { display: none; }
 }

@@ -1,0 +1,416 @@
+/* ── Root container — fixed bottom right ── */
+.root {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 90;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.rootIn {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Collapsed trigger pill ── */
+.trigger {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  background: #1a1410;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 1px 4px rgba(0,0,0,0.3);
+  cursor: pointer;
+  transition: box-shadow 0.18s, border-color 0.18s;
+  max-width: 220px;
+}
+.trigger:hover {
+  border-color: rgba(212,147,74,0.4);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 0 2px rgba(158,107,63,0.15);
+}
+
+.triggerStrip {
+  width: 4px;
+  align-self: stretch;
+  background: linear-gradient(to bottom, #d4934a, #9E6B3F);
+  flex-shrink: 0;
+}
+
+.triggerBody {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1px;
+  padding: 10px 10px 10px 12px;
+  min-width: 0;
+}
+
+.triggerLabel {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: #d4934a;
+  font-family: 'Libre Baskerville', serif;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.triggerName {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.85);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 110px;
+}
+
+.triggerAr {
+  font-family: 'Amiri', serif;
+  font-size: 18px;
+  color: rgba(255,255,255,0.7);
+  padding: 0 10px;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.triggerChev {
+  margin-right: 12px;
+  flex-shrink: 0;
+  color: rgba(255,255,255,0.3);
+}
+
+/* ── Expanded panel ── */
+.panel {
+  background: #141210;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.3);
+  width: 280px;
+  animation: panelIn 0.22s cubic-bezier(0.22, 0.8, 0.4, 1);
+}
+
+@keyframes panelIn {
+  from { opacity: 0; transform: scale(0.93) translateY(8px); transform-origin: bottom right; }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.panelHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.panelHeadLabel {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: rgba(255,255,255,0.35);
+  font-family: 'Libre Baskerville', serif;
+}
+
+.panelClose {
+  width: 22px; height: 22px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 6px;
+  color: rgba(255,255,255,0.3);
+  transition: all 0.15s;
+}
+.panelClose:hover { background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.7); }
+
+/* ── Featured (latest) card ── */
+.featCard {
+  display: flex;
+  align-items: stretch;
+  text-decoration: none;
+  transition: background 0.15s;
+  position: relative;
+  overflow: hidden;
+}
+.featCard:hover { background: rgba(255,255,255,0.03); }
+
+.featStrip {
+  width: 3px;
+  align-self: stretch;
+  background: linear-gradient(to bottom, #d4934a, #9E6B3F);
+  flex-shrink: 0;
+}
+
+.featBody {
+  flex: 1;
+  padding: 14px 12px 14px 14px;
+  min-width: 0;
+}
+
+.featMeta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.featNum {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 10px;
+  color: rgba(255,255,255,0.2);
+  letter-spacing: 0.08em;
+}
+
+.featJuz {
+  font-size: 10px;
+  color: rgba(255,255,255,0.25);
+  font-family: 'Libre Baskerville', serif;
+  letter-spacing: 0.04em;
+}
+
+.featTime {
+  font-size: 10px;
+  color: #d4934a;
+  margin-left: auto;
+  font-style: italic;
+  font-family: 'Lora', serif;
+}
+
+.featAr {
+  font-family: 'Amiri', serif;
+  font-size: 26px;
+  color: rgba(255,255,255,0.92);
+  direction: rtl;
+  text-align: left;
+  line-height: 1.2;
+  margin-bottom: 3px;
+}
+
+.featEn {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 2px;
+}
+
+.featSub {
+  font-size: 11px;
+  color: rgba(255,255,255,0.28);
+  font-style: italic;
+  font-family: 'Lora', serif;
+}
+
+.featResume {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 0 16px;
+  background: rgba(158,107,63,0.12);
+  border-left: 1px solid rgba(158,107,63,0.18);
+  color: #d4934a;
+  font-size: 10px;
+  font-family: 'Libre Baskerville', serif;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+  transition: background 0.15s, color 0.15s;
+  flex-shrink: 0;
+}
+.featCard:hover .featResume {
+  background: rgba(158,107,63,0.22);
+  color: #e8b07a;
+}
+
+/* ── Recent list ── */
+.recentList {
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 6px 0 4px;
+}
+
+.recentLabel {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: rgba(255,255,255,0.2);
+  font-family: 'Libre Baskerville', serif;
+  padding: 4px 14px 6px;
+}
+
+.recentRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px;
+  text-decoration: none;
+  transition: background 0.12s;
+}
+.recentRow:hover { background: rgba(255,255,255,0.04); }
+
+.recentNum {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 10px;
+  color: rgba(255,255,255,0.18);
+  letter-spacing: 0.06em;
+  flex-shrink: 0;
+  width: 20px;
+}
+
+.recentNames {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.recentAr {
+  font-family: 'Amiri', serif;
+  font-size: 16px;
+  color: rgba(255,255,255,0.75);
+  direction: rtl;
+  text-align: left;
+  line-height: 1.2;
+}
+
+.recentEn {
+  font-size: 11px;
+  color: rgba(255,255,255,0.35);
+  font-family: 'Libre Baskerville', serif;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.recentTime {
+  font-size: 10px;
+  color: rgba(255,255,255,0.22);
+  font-style: italic;
+  font-family: 'Lora', serif;
+  flex-shrink: 0;
+}
+
+@media (max-width: 480px) {
+  .root { bottom: 16px; right: 16px; }
+  .panel { width: 260px; }
+  .triggerName { max-width: 90px; }
+}
+
+/* ── Streak in trigger ── */
+.triggerStreak {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10px;
+  border-right: 1px solid rgba(255,255,255,0.06);
+  gap: 1px;
+  flex-shrink: 0;
+}
+.triggerStreakActive .streakFire { filter: none; }
+.streakFire {
+  font-size: 14px;
+  line-height: 1;
+  filter: grayscale(0.5);
+}
+.triggerStreakActive .streakFire { filter: none; }
+.streakCount {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.5);
+  line-height: 1;
+}
+.triggerStreakActive .streakCount { color: #d4934a; }
+
+/* ── Streak section in panel ── */
+.sectionLabel {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: rgba(255,255,255,0.2);
+  font-family: 'Libre Baskerville', serif;
+  padding: 10px 14px 6px;
+}
+
+.streakRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 14px 14px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  position: relative;
+  background: rgba(212,147,74,0.04);
+}
+
+.streakIcon {
+  font-size: 28px;
+  line-height: 1;
+  filter: grayscale(0.6);
+  flex-shrink: 0;
+  transition: filter 0.3s;
+}
+.streakIconActive { filter: none; }
+
+.streakInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.streakValue {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  margin-bottom: 4px;
+}
+
+.streakNum {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: #d4934a;
+  line-height: 1;
+}
+
+.streakUnit {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 11px;
+  color: rgba(255,255,255,0.35);
+  letter-spacing: 0.04em;
+}
+
+.streakSub {
+  font-family: 'Lora', serif;
+  font-size: 10px;
+  color: rgba(255,255,255,0.22);
+  font-style: italic;
+  line-height: 1.5;
+}
+
+/* 7-day calendar dots */
+.streakDots {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex-shrink: 0;
+  align-self: center;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  transition: background 0.2s;
+}
+
+.dotOn {
+  background: #d4934a;
+  box-shadow: 0 0 4px rgba(212,147,74,0.5);
+}
