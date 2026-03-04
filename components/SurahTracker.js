@@ -159,7 +159,6 @@ export default function SurahTracker() {
             <span className={styles.triggerLabel}>Continue reading</span>
             <span className={styles.triggerName}>{latest.englishName}</span>
           </div>
-          <span className={styles.triggerAr}>{latest.name}</span>
           <svg className={styles.triggerChev} viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" strokeWidth="1.8">
             <path d="M6 4l4 4-4 4"/>
           </svg>
