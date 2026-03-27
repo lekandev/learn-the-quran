@@ -34,12 +34,23 @@ const FEATURES = [
     hadith: { text: '"Allah has ninety-nine names. Whoever preserves them will enter Paradise."', source: 'Muslim 2677', tag: 'Hadith' },
     color: '#7a5a9e', soft: 'rgba(122,90,158,0.08)', border: 'rgba(122,90,158,0.22)',
   },
+  {
+    id: 'salat', href: '/salat',
+    arabicTitle: 'الصَّلاة',
+    title: 'Salat Guide',
+    subtitle: 'Every step, posture, dua & dhikr',
+    desc: 'A comprehensive, illustrated guide to Salat — Arabic text, transliteration, translation, and the ruling (fard, wajib, sunnah) for every step from Niyyah to post-prayer adhkar.',
+    ref: { arabic: 'وَأَقِيمُوا الصَّلَاةَ وَآتُوا الزَّكَاةَ وَارْكَعُوا مَعَ الرَّاكِعِينَ', text: 'Establish prayer, give zakah, and bow with those who bow.', source: 'Al-Baqarah 2:43', tag: 'Quran' },
+    hadith: { text: '"The first matter that the servant will be brought to account for on the Day of Judgement is the prayer."', source: 'Tirmidhi 413', tag: 'Hadith' },
+    color: '#2e7d6b', soft: 'rgba(46,125,107,0.08)', border: 'rgba(46,125,107,0.22)',
+  },
 ]
 
 const ICONS = {
   read: <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.3" width="32" height="32"><path d="M8 6h18l8 8v22H8V6z"/><path d="M26 6v8h8"/><line x1="13" y1="19" x2="27" y2="19"/><line x1="13" y1="24" x2="27" y2="24"/><line x1="13" y1="29" x2="21" y2="29"/></svg>,
   session: <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.3" width="32" height="32"><rect x="9" y="5" width="8" height="17" rx="4"/><path d="M5 18a9 9 0 0 0 18 0"/><line x1="13" y1="27" x2="13" y2="34"/><line x1="8" y1="34" x2="18" y2="34"/><circle cx="29" cy="27" r="7"/><path d="M27 25l5 2-5 2v-4z" fill="currentColor" stroke="none"/></svg>,
   asma: <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.3" width="32" height="32"><polygon points="20,3 23.5,13.5 34.5,13.5 26,20.5 29,31 20,25 11,31 14,20.5 5.5,13.5 16.5,13.5"/></svg>,
+  salat: <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.3" width="32" height="32"><circle cx="20" cy="7" r="4"/><line x1="20" y1="11" x2="20" y2="26"/><path d="M20 17 Q13 21 10 20"/><path d="M20 17 Q27 21 30 20"/><line x1="20" y1="26" x2="15" y2="38"/><line x1="20" y1="26" x2="25" y2="38"/></svg>,
 }
 
 function OrnDivider() {
